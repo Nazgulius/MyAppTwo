@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MyAppTwo</string>
+    <string name="test_text">Проверка работы контроля версий. 1.</string>
 </resources>

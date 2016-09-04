@@ -13,5 +13,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"/>
+        android:layout_centerHorizontal="true"
+
+        android:text="@string/test_text"
+        android:textColor="#078604"
+        android:textIsSelectable="false"
+        android:textSize="18dp"/>
+
+
+
 </RelativeLayout>
