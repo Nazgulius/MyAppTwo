@@ -2,13 +2,17 @@
     <string name="app_name">Calculate</string>
     <string name="test_text">Проверка работы приложения.</string>
 
+    // Операции
     <string name="mnoj">*</string>
     <string name="percent">%</string>
     <string name="drob">/</string>
     <string name="minus">-</string>
     <string name="plus">+</string>
     <string name="ronvo">=</string>
+    <string name="clear">Clear</string>
+    <string name="point">.</string>
 
+    // цыфры
     <string name="num_7">7</string>
     <string name="num_2">2</string>
     <string name="num_3">3</string>
@@ -19,8 +23,29 @@
     <string name="num_8">8</string>
     <string name="num_9">9</string>
     <string name="num_0">0</string>
-    <string name="clear">Clear</string>
 
+    // строки насткройки и меню
+    <string name="action_settings">Settings</string>
     <string name="option">Настройки</string>
     <string name="about_app">О программе</string>
+    <string name="add_bt">Дополнительные кнопки</string>
+    <string name="descr_add_bt">Показать дополнительные кнопки</string>
+    <string name="style_app">Стиль программы</string>
+    <string name="descr_style_app">Изменить стиль</string>
+    <string name="limit_before">Ограние разрядности = 8</string>
+    <string name="limit_after">Ограничение знаков после запятой = 2</string>
+    <string name="degree_overflow">Ошибка: переполнение разрядности</string>
+    <string name="dopPanel">Дополнительная панель</string>
+
+    // стили
+    <string-array name="style_entries">
+        <item>Стиль 1</item>
+        <item>Стиль 2</item>
+    </string-array>
+
+    <string-array name="style_entry_values">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
 </resources>

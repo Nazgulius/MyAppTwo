@@ -2,12 +2,15 @@ package makis.myapptwo.ui.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,7 +19,6 @@ import makis.myapptwo.R;
 
 public class MainActivity extends Activity implements OnClickListener {
 
-    // делаем переменные кнопок
     private Button mButton0;
     private Button mButton1;
     private Button mButton2;
@@ -34,12 +36,22 @@ public class MainActivity extends Activity implements OnClickListener {
     private Button mButtonPercent;
     private Button mButtonRovno;
     private Button mBtClear;
+    private Button mBtPoint;
+
+    private Boolean add_button;
+    private String style_calc;
+    private LinearLayout llExtra;
+    SharedPreferences sp;
+
+    // делаем переменные кнопок
+    private int [] buttonIds;
+    private Button [] arraysBt;
 
     // делаем переменные окон
     private TextView mTextView;
 
     // делаем переменные операторов арифметических действий
-    private int operand1, operand2, flagAction;
+    private int operand1, operand2, flagAction, len;
     private double result;
 
 
@@ -51,47 +63,27 @@ public class MainActivity extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // привязка кнопок
-        mButton0 = (Button) findViewById(R.id.num_0);
-        mButton1 = (Button) findViewById(R.id.num_1);
-        mButton2 = (Button) findViewById(R.id.num_2);
-        mButton3 = (Button) findViewById(R.id.num_3);
-        mButton4 = (Button) findViewById(R.id.num_4);
-        mButton5 = (Button) findViewById(R.id.num_5);
-        mButton6 = (Button) findViewById(R.id.num_6);
-        mButton7 = (Button) findViewById(R.id.num_7);
-        mButton8 = (Button) findViewById(R.id.num_8);
-        mButton9 = (Button) findViewById(R.id.num_9);
-        mButtonMinus = (Button) findViewById(R.id.button_minus);
-        mButtonPlus = (Button) findViewById(R.id.button_plus);
-        mButtonDrob = (Button) findViewById(R.id.button_drob);
-        mButtonMnoj = (Button) findViewById(R.id.button_mnoj);
-        mButtonPercent = (Button) findViewById(R.id.button_percent);
-        mButtonRovno = (Button) findViewById(R.id.button_rovno);
-        mBtClear = (Button) findViewById(R.id.clear);
+        // привязка кнопок и  делаем слушателей
+        buttonIds = new int[]{R.id.num_0, R.id.num_1, R.id.num_2, R.id.num_3, R.id.num_4, R.id.num_5,
+                R.id.num_6, R.id.num_7, R.id.num_8, R.id.num_9, R.id.button_minus, R.id.button_plus,
+                R.id.button_drob, R.id.button_mnoj,R.id.button_percent, R.id.button_rovno, R.id.clear,
+                R.id.point};
+
+        arraysBt = new Button[]{mButton0, mButton1, mButton2, mButton3, mButton4, mButton5, mButton6,
+                mButton7, mButton8, mButton9, mButtonMinus, mButtonPlus, mButtonDrob, mButtonMnoj,
+                mButtonPercent, mButtonRovno, mBtClear, mBtPoint};
+
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+        llExtra = (LinearLayout)findViewById(R.id.llExtra);
+
+        len = arraysBt.length;
+        for (int i = 0; i < len; i++){
+            arraysBt[i] = (Button) findViewById(buttonIds[i]);
+            arraysBt[i].setOnClickListener(this);
+        }
 
         // привязка окна текста
         mTextView = (TextView) findViewById(R.id.textViewOut);
-
-        // Делаем слушателей
-        mButton0.setOnClickListener(this);
-        mButton1.setOnClickListener(this);
-        mButton2.setOnClickListener(this);
-        mButton3.setOnClickListener(this);
-        mButton4.setOnClickListener(this);
-        mButton5.setOnClickListener(this);
-        mButton6.setOnClickListener(this);
-        mButton7.setOnClickListener(this);
-        mButton8.setOnClickListener(this);
-        mButton9.setOnClickListener(this);
-        mButtonMinus.setOnClickListener(this);
-        mButtonPlus.setOnClickListener(this);
-        mButtonMnoj.setOnClickListener(this);
-        mButtonDrob.setOnClickListener(this);
-        mButtonPercent.setOnClickListener(this);
-        mButtonRovno.setOnClickListener(this);
-        mBtClear.setOnClickListener(this);
-
     }
 
     @Override
@@ -177,18 +169,12 @@ public class MainActivity extends Activity implements OnClickListener {
 
                 if(flagAction != 0){
                     mTextView.setText(Double.toString(result));
-                    operand1 = 0;
-                    operand2 = 0;
-                    result = 0;
-                    flagAction = 0;
+                    clearVariables();
                 }
                 break;
 
             case R.id.clear:
-                operand1 = 0;
-                operand2 = 0;
-                result = 0;
-                flagAction = 0;
+                clearVariables();
                 mTextView.setText(Integer.toString(operand1));
                 break;
         }
@@ -212,7 +198,7 @@ public class MainActivity extends Activity implements OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-       /* add_button = sp.getBoolean("add_button", false);
+        add_button = sp.getBoolean("add_button", false);
 
         style_calc = sp.getString("style_calc", "1");
 
@@ -220,7 +206,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
         if(add_button)flag_visiblity = View.VISIBLE;
 
-        llExtra.setVisibility(flag_visiblity);*/
+        llExtra.setVisibility(flag_visiblity);
     }
 
     @Override
@@ -231,31 +217,22 @@ public class MainActivity extends Activity implements OnClickListener {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        // Inflate the menu; this adds items to the action bar if it is present.
-
         getMenuInflater().inflate(R.menu.main, menu);
-
         return true;
-
     }
+
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch(item.getItemId()){
 
             case R.id.options_menu:
-
-                //startActivity(new Intent(this, PrefActivity.class));
-
+                startActivity(new Intent(this, PrefActivity.class));
                 break;
 
             case R.id.about_menu:
-
                 startActivity(new Intent(this, AboutActivity.class));
-
                 break;
-
         }
-
         return super.onOptionsItemSelected(item);
 
     }
@@ -263,18 +240,19 @@ public class MainActivity extends Activity implements OnClickListener {
     private void ClickNumber(int num){
 
         if(flagAction == 0){
-
             operand1 = operand1*10 + num;
-
             mTextView.setText(Integer.toString(operand1));
 
         }else{
-
             operand2 = operand2*10 + num;
-
             mTextView.setText(Integer.toString(operand2));
-
         }
+    }
 
+    private void clearVariables(){
+        operand1 = 0;
+        operand2 = 0;
+        result = 0;
+        flagAction = 0;
     }
 }
