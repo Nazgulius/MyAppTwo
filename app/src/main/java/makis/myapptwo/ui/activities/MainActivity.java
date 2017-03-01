@@ -1,10 +1,11 @@
 package makis.myapptwo.ui.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,28 +16,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import makis.myapptwo.R;
+import makis.myapptwo.unit.ConstantManager;
 
 
-public class MainActivity extends Activity implements OnClickListener {
+public class MainActivity extends AppCompatActivity implements OnClickListener {
 
-    private Button mButton0;
-    private Button mButton1;
-    private Button mButton2;
-    private Button mButton3;
-    private Button mButton4;
-    private Button mButton5;
-    private Button mButton6;
-    private Button mButton7;
-    private Button mButton8;
-    private Button mButton9;
-    private Button mButtonMinus;
-    private Button mButtonPlus;
-    private Button mButtonDrob;
-    private Button mButtonMnoj;
-    private Button mButtonPercent;
-    private Button mButtonRovno;
-    private Button mBtClear;
-    private Button mBtPoint;
+    private static final String TAG = ConstantManager.TAG_PREFIX+"Main Activity";
+    private int mColorMode;
+
+
+    private Button mButton0, mButton1, mButton2, mButton3, mButton4, mButton5, mButton6, mButton7,
+            mButton8, mButton9, mButtonMinus, mButtonPlus, mButtonDrob, mButtonMnoj, mButtonPercent,
+            mButtonRovno, mBtClear, mBtPoint;
 
     private Boolean add_button;
     private String style_calc;
@@ -62,6 +53,7 @@ public class MainActivity extends Activity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d(TAG, "onCreate");
 
         // привязка кнопок и  делаем слушателей
         buttonIds = new int[]{R.id.num_0, R.id.num_1, R.id.num_2, R.id.num_3, R.id.num_4, R.id.num_5,
@@ -84,10 +76,18 @@ public class MainActivity extends Activity implements OnClickListener {
 
         // привязка окна текста
         mTextView = (TextView) findViewById(R.id.textViewOut);
+
+        // проверяем состояние активити, запускалось ранее или нет
+        if (savedInstanceState == null) {
+            // активити запустилось в первый раз
+        } else {
+            // активити уже создавалось
+        }
     }
 
     @Override
     public void onClick(View v){
+        Log.d(TAG, "onClick");
         switch(v.getId()){
             case R.id.num_1:
                 ClickNumber(1);
@@ -183,21 +183,26 @@ public class MainActivity extends Activity implements OnClickListener {
     @Override
     protected void onStart() {
         super.onStart();
+        Log.d(TAG, "onStart");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        Log.d(TAG, "onStop");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        Log.d(TAG, "onPause");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        Log.d(TAG, "onResume");
+
         add_button = sp.getBoolean("add_button", false);
 
         style_calc = sp.getString("style_calc", "1");
@@ -212,7 +217,17 @@ public class MainActivity extends Activity implements OnClickListener {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.d(TAG, "onDestroy");
     }
+
+    // заготовка для сохранения состояния чего либо, пока mColorMode
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.d(TAG, "onSaveInstanceState");
+        outState.putInt(ConstantManager.COLOR_MOD_KEY, mColorMode);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

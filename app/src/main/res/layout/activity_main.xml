@@ -15,7 +15,13 @@
         android:id="@+id/textViewOut"
         android:layout_margin="8dp"
         android:layout_marginBottom="50dp"
-        android:textSize="36dp"
+        android:gravity="right"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textText"
+        android:layout_margin="8dp"
+        android:layout_marginBottom="50dp"
         android:gravity="right"/>
 
     // первая лиция
@@ -183,7 +189,7 @@
 
     </LinearLayout>
 
-    // Панель появляется или пропадает по настроекам
+    // Панель появляется или пропадает по настройкам
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -196,13 +202,13 @@
         android:text="@string/dopPanel"/>
     </LinearLayout>
 
-    <android.support.design.widget.NavigationView
+  <!--   <android.support.design.widget.NavigationView
         android:id="@id/navigation_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/">
 
-    </android.support.design.widget.NavigationView>
+    </android.support.design.widget.NavigationView> -->
 
 </LinearLayout>
