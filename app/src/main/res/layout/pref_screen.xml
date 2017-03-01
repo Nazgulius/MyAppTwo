@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent">
+    <CheckBoxPreference
+        android:key="add_button"
+        android:summary="@string/descr_add_bt"
+        android:title="@string/add_bt">
+    </CheckBoxPreference>
+    <ListPreference
+        android:entries="@array/style_entries"
+        android:entryValues="@array/style_entry_values"
+        android:key="style_calc"
+        android:summary="@string/descr_style_app"
+        android:title="@string/style_app">
+    </ListPreference>
+
+</PreferenceScreen>

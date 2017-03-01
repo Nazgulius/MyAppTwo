@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="ru.urok.super_calc.MainActivity">
+
+    <group android:checkableBehavior="single">
+
+    <item
+        android:id="@+id/options_menu"
+        android:title="@string/option"
+        android:checkable="true"
+        android:icon="@drawable/ic_settings_black_24dp"/>
+    <item
+        android:id="@+id/about_menu"
+        android:title="@string/about_app"
+        android:icon="@drawable/ic_report_black_24dp"/>
+
+    </group>
+</menu>
